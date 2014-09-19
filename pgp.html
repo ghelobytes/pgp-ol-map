@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+   
+   
+    <link rel="stylesheet" href="./js/theme/default/pgp.css" type="text/css">
+   
+    <script src="./js/OpenLayers.light.js"></script>
+	<script src="./js/NAMRIA.js"></script>
+   
+   <script type="text/javascript">
+        var lon = 121;
+        var lat = 14;
+        var zoom = 8;
+        var map, layer, pgp;
+
+        function init(){
+            map = new OpenLayers.Map( 'map', {theme: null} );
+            layer = new OpenLayers.Layer.WMS( "OpenLayers WMS",
+                    "http://vmap0.tiles.osgeo.org/wms/vmap0", {layers: 'basic'} );
+			pgp = new OpenLayers.Layer.NAMRIA(
+						'NAMRIA Basemap',
+						'http://202.90.149.252/ArcGIS/rest/services/Basemap/PGS_Basemap/MapServer',
+						{
+							isBaseLayer: true
+						}
+					);
+            map.addLayer(pgp);
+			var center = new OpenLayers.LonLat(lon, lat).transform('EPSG:4326','EPSG:3857');
+            map.setCenter(center, zoom);
+        }
+    </script>
+	
+	<style>
+		.smallmap {
+			width: 512px;
+			height: 256px;
+			border: 1px solid #ccc;
+		}
+	</style>
+	
+	
+  </head>
+  
+
+  
+  
+  
+  
+   <body onload="init()">
+
+    <div id="map" class="smallmap"></div>
+
+  
+  
+  </html>
